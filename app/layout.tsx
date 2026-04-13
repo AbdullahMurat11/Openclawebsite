@@ -7,8 +7,8 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'OpenClaw - Local AI Agents for Small Business',
-  description: 'Run powerful AI agents locally on affordable hardware. No token costs, complete data privacy. The smart choice for small business automation.',
+  title: 'Closed Claw - Local AI Agents for Small Business',
+  description: 'Run powerful AI agents locally on Raspberry Pi. No token costs after purchase, complete data privacy. The smart choice for small business automation.',
   generator: 'v0.app',
   icons: {
     icon: [

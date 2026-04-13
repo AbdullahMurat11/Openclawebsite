@@ -38,7 +38,7 @@ export function Features() {
     <section id="features" className="py-20 md:py-32">
       <div className="mx-auto max-w-7xl px-6">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-accent">Why OpenClaw</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-primary">Why Closed Claw</h2>
           <p className="mt-2 text-3xl font-bold text-foreground md:text-4xl text-balance">
             Enterprise AI power without enterprise costs
           </p>
@@ -51,9 +51,9 @@ export function Features() {
           {features.map((feature, index) => (
             <div 
               key={index} 
-              className="group rounded-xl border border-border bg-card p-6 transition-all hover:border-accent/50 hover:bg-card/80"
+              className="group rounded-xl border border-border bg-card p-6 transition-all hover:border-primary/50 hover:bg-card/80"
             >
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-accent/10 text-accent transition-colors group-hover:bg-accent group-hover:text-accent-foreground">
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
                 <feature.icon className="h-6 w-6" />
               </div>
               <h3 className="mt-4 text-lg font-semibold text-foreground">{feature.title}</h3>

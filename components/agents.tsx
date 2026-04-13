@@ -50,7 +50,7 @@ export function Agents() {
     <section id="agents" className="border-y border-border bg-card py-20 md:py-32">
       <div className="mx-auto max-w-7xl px-6">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-accent">Meet Your Team</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-primary">Meet Your Team</h2>
           <p className="mt-2 text-3xl font-bold text-foreground md:text-4xl text-balance">
             A crew of specialized AI agents
           </p>
@@ -63,14 +63,14 @@ export function Agents() {
           {agents.map((agent, index) => (
             <div 
               key={index} 
-              className="group relative overflow-hidden rounded-xl border border-border bg-background p-6 transition-all hover:border-accent/50"
+              className="group relative overflow-hidden rounded-xl border border-border bg-background p-6 transition-all hover:border-primary/50"
             >
               <div className={`flex h-14 w-14 items-center justify-center rounded-xl ${agent.color}`}>
                 <agent.icon className="h-7 w-7" />
               </div>
               <div className="mt-4">
                 <h3 className="text-xl font-bold text-foreground">{agent.name}</h3>
-                <p className="text-sm font-medium text-accent">{agent.role}</p>
+                <p className="text-sm font-medium text-primary">{agent.role}</p>
               </div>
               <p className="mt-3 text-sm text-muted-foreground">{agent.description}</p>
             </div>

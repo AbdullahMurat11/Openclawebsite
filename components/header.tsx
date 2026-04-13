@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Menu, X } from "lucide-react"
 
@@ -11,15 +12,22 @@ export function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-        <Link href="/" className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent">
-            <span className="text-lg font-bold text-accent-foreground">O</span>
-          </div>
-          <span className="text-xl font-bold text-foreground">OpenClaw</span>
+        <Link href="/" className="flex items-center gap-3">
+          <Image 
+            src="/images/logo.png" 
+            alt="Closed Claw Logo" 
+            width={40} 
+            height={40} 
+            className="rounded-lg"
+          />
+          <span className="text-xl font-bold text-foreground">Closed Claw</span>
         </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden items-center gap-8 md:flex">
+          <Link href="/about" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+            About
+          </Link>
           <Link href="#features" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
             Features
           </Link>
@@ -58,6 +66,13 @@ export function Header() {
       {isMenuOpen && (
         <div className="border-t border-border bg-background px-6 py-4 md:hidden">
           <nav className="flex flex-col gap-4">
+            <Link 
+              href="/about" 
+              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              About
+            </Link>
             <Link 
               href="#features" 
               className="text-sm text-muted-foreground transition-colors hover:text-foreground"

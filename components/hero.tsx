@@ -1,32 +1,33 @@
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Shield, Cpu } from "lucide-react"
+import Link from "next/link"
 
 export function Hero() {
   return (
     <section className="relative overflow-hidden pt-32 pb-20 md:pt-40 md:pb-32">
       {/* Background gradient effect */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -top-1/2 left-1/2 h-[800px] w-[800px] -translate-x-1/2 rounded-full bg-accent/10 blur-3xl" />
+        <div className="absolute -top-1/2 left-1/2 h-[800px] w-[800px] -translate-x-1/2 rounded-full bg-primary/5 blur-3xl" />
       </div>
 
       <div className="relative mx-auto max-w-7xl px-6">
         <div className="mx-auto max-w-4xl text-center">
           {/* Badge */}
-          <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2">
-            <div className="h-2 w-2 rounded-full bg-accent animate-pulse" />
-            <span className="text-sm text-muted-foreground">Now shipping to small businesses</span>
+          <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-border bg-muted px-4 py-2">
+            <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
+            <span className="text-sm text-muted-foreground">Now shipping on Raspberry Pi</span>
           </div>
 
           {/* Headline */}
           <h1 className="text-balance text-4xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl">
-            AI Agents That Run{" "}
-            <span className="text-accent">Locally</span>
+            Your own AI team,{" "}
+            <span className="text-primary">running locally</span>
           </h1>
 
           {/* Subheadline */}
           <p className="mx-auto mt-6 max-w-2xl text-pretty text-lg text-muted-foreground md:text-xl">
-            Powerful AI automation on a Raspberry Pi. No monthly token fees, no cloud dependency, 
-            complete data privacy. The enterprise AI experience at a fraction of the cost.
+            Powerful AI automation on a Raspberry Pi. Buy once, use forever - no token costs 
+            after purchase. Complete data privacy with local LLM processing.
           </p>
 
           {/* CTA Buttons */}
@@ -43,16 +44,16 @@ export function Hero() {
           {/* Trust indicators */}
           <div className="mt-16 flex flex-wrap items-center justify-center gap-8 border-t border-border pt-8">
             <div className="flex items-center gap-2 text-muted-foreground">
-              <Shield className="h-5 w-5 text-accent" />
+              <Shield className="h-5 w-5 text-primary" />
               <span className="text-sm">100% Local Processing</span>
             </div>
             <div className="flex items-center gap-2 text-muted-foreground">
-              <Cpu className="h-5 w-5 text-accent" />
+              <Cpu className="h-5 w-5 text-primary" />
               <span className="text-sm">Runs on Raspberry Pi</span>
             </div>
             <div className="flex items-center gap-2 text-muted-foreground">
-              <div className="h-5 w-5 rounded-full bg-accent/20 flex items-center justify-center">
-                <span className="text-xs font-bold text-accent">$0</span>
+              <div className="h-5 w-5 rounded-full bg-primary/20 flex items-center justify-center">
+                <span className="text-xs font-bold text-primary">$0</span>
               </div>
               <span className="text-sm">Zero Token Costs</span>
             </div>
