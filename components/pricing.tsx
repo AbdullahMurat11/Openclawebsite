@@ -2,105 +2,127 @@ import { Button } from "@/components/ui/button"
 import { Check, ArrowRight } from "lucide-react"
 
 export function Pricing() {
-  const features = [
-    "Pre-configured Raspberry Pi hardware",
-    "All 6 AI agents pre-installed",
-    "Local LLM optimized for edge computing",
-    "Complete setup documentation",
-    "Email and calendar integration",
-    "Project management tools",
-    "30-day money-back guarantee"
-  ]
-
-  const updateFeatures = [
-    "Latest AI model updates",
-    "New agent capabilities",
-    "Security patches",
-    "Priority support access"
+  const plans = [
+    {
+      name: "Basic",
+      price: "$1,000",
+      period: "upfront",
+      monthly: "$10/Month",
+      description: "Ideal for small businesses with limited amount of tasks",
+      features: [
+        "Regular models",
+        "Software updates",
+        "Email support"
+      ],
+      popular: false
+    },
+    {
+      name: "Premium",
+      price: "$1,000",
+      period: "upfront",
+      monthly: "$25/Month",
+      description: "Ideal for businesses with heavy administrative needs",
+      features: [
+        "Access to newer models",
+        "Software updates",
+        "Priority email support"
+      ],
+      popular: true
+    },
+    {
+      name: "Unlimited",
+      price: "$1,000",
+      period: "upfront",
+      monthly: "$35/Month",
+      description: "Ideal for medium-sized businesses with large teams",
+      features: [
+        "Access to all models",
+        "Software updates",
+        "24/7 chat support",
+        "Dashboard analytics"
+      ],
+      popular: false
+    }
   ]
 
   return (
-    <section id="pricing" className="py-20 md:py-32">
+    <section id="pricing" className="py-20 md:py-32 bg-background">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-primary">Simple Pricing</h2>
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-primary">Pricing</h2>
           <p className="mt-2 text-3xl font-bold text-foreground md:text-4xl text-balance">
-            Anti-enterprise pricing for real businesses
+            One time purchase + subscription-based Revenue
           </p>
           <p className="mt-4 text-muted-foreground text-pretty">
-            No monthly subscriptions, no per-token fees. Just straightforward pricing that respects your budget.
+            Choose the plan that works best for your business needs.
           </p>
         </div>
 
-        <div className="mt-16 grid gap-8 lg:grid-cols-2 lg:gap-12">
-          {/* Hardware Package */}
-          <div className="relative overflow-hidden rounded-2xl border-2 border-primary bg-card p-8">
-            <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-primary/10 blur-3xl" />
-            <div className="relative">
-              <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-sm font-medium text-primary">
-                Most Popular
-              </div>
-              <h3 className="mt-4 text-2xl font-bold text-foreground">Closed Claw Box</h3>
-              <p className="mt-2 text-muted-foreground">Complete hardware + software package</p>
-              
-              <div className="mt-6 flex items-baseline gap-2">
-                <span className="text-5xl font-bold text-foreground">$1,000</span>
-                <span className="text-muted-foreground">one-time</span>
+        <div className="mt-16 grid gap-8 md:grid-cols-3">
+          {plans.map((plan, index) => (
+            <div 
+              key={index} 
+              className={`relative rounded-2xl border p-8 ${
+                plan.popular 
+                  ? "border-primary bg-primary text-primary-foreground" 
+                  : "border-border bg-card"
+              }`}
+            >
+              {plan.popular && (
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-accent px-4 py-1 text-xs font-semibold text-accent-foreground">
+                  Most Popular
+                </div>
+              )}
+
+              <h3 className={`text-xl font-bold ${plan.popular ? "text-primary-foreground" : "text-foreground"}`}>
+                {plan.name}
+              </h3>
+              <p className={`mt-2 text-sm ${plan.popular ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
+                {plan.description}
+              </p>
+
+              <div className="mt-6">
+                <div className="flex items-baseline gap-2">
+                  <span className={`text-4xl font-bold ${plan.popular ? "text-primary-foreground" : "text-foreground"}`}>
+                    {plan.price}
+                  </span>
+                  <span className={plan.popular ? "text-primary-foreground/70" : "text-muted-foreground"}>
+                    {plan.period}
+                  </span>
+                </div>
+                <p className={`mt-1 text-lg font-semibold ${plan.popular ? "text-primary-foreground/90" : "text-primary"}`}>
+                  + {plan.monthly}
+                </p>
               </div>
 
               <ul className="mt-8 space-y-4">
-                {features.map((feature, index) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10">
-                      <Check className="h-3 w-3 text-primary" />
+                {plan.features.map((feature, featureIndex) => (
+                  <li key={featureIndex} className="flex items-start gap-3">
+                    <div className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${
+                      plan.popular ? "bg-primary-foreground/20" : "bg-primary/10"
+                    }`}>
+                      <Check className={`h-3 w-3 ${plan.popular ? "text-primary-foreground" : "text-primary"}`} />
                     </div>
-                    <span className="text-sm text-foreground">{feature}</span>
+                    <span className={`text-sm ${plan.popular ? "text-primary-foreground/90" : "text-foreground"}`}>
+                      {feature}
+                    </span>
                   </li>
                 ))}
               </ul>
 
-              <Button size="lg" className="mt-8 w-full bg-primary text-primary-foreground hover:bg-primary/90">
-                Pre-order Now
+              <Button 
+                size="lg" 
+                className={`mt-8 w-full ${
+                  plan.popular 
+                    ? "bg-primary-foreground text-primary hover:bg-primary-foreground/90" 
+                    : "bg-primary text-primary-foreground hover:bg-primary/90"
+                }`}
+              >
+                Get Started
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </div>
-          </div>
-
-          {/* Update Plan */}
-          <div className="rounded-2xl border border-border bg-card p-8">
-            <h3 className="text-2xl font-bold text-foreground">Update Plan</h3>
-            <p className="mt-2 text-muted-foreground">Keep your agents current</p>
-            
-            <div className="mt-6 flex items-baseline gap-2">
-              <span className="text-5xl font-bold text-foreground">$60</span>
-              <span className="text-muted-foreground">/year</span>
-            </div>
-            <p className="mt-2 text-sm text-muted-foreground">Optional - your box works forever without it</p>
-
-            <ul className="mt-8 space-y-4">
-              {updateFeatures.map((feature, index) => (
-                <li key={index} className="flex items-start gap-3">
-                  <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-muted">
-                    <Check className="h-3 w-3 text-muted-foreground" />
-                  </div>
-                  <span className="text-sm text-foreground">{feature}</span>
-                </li>
-              ))}
-            </ul>
-
-            <Button size="lg" variant="outline" className="mt-8 w-full border-border text-foreground hover:bg-secondary">
-              Add to Order
-            </Button>
-
-            {/* Comparison */}
-            <div className="mt-8 rounded-xl bg-secondary/50 p-4">
-              <p className="text-sm font-medium text-foreground">Compare to enterprise AI:</p>
-              <p className="mt-1 text-xs text-muted-foreground">
-                GPT-4 API costs ~$0.03/1K tokens. A business using 100K tokens/day would spend ~$1,000/month. 
-                Closed Claw pays for itself in the first month.
-              </p>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>

@@ -1,61 +1,65 @@
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Shield, Cpu } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden pt-32 pb-20 md:pt-40 md:pb-32">
-      {/* Background gradient effect */}
+    <section className="relative overflow-hidden bg-primary pt-32 pb-20 md:pt-40 md:pb-32">
+      {/* Decorative circles */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -top-1/2 left-1/2 h-[800px] w-[800px] -translate-x-1/2 rounded-full bg-primary/5 blur-3xl" />
+        <div className="absolute -top-20 -left-20 h-80 w-80 rounded-full bg-accent/20 blur-3xl" />
+        <div className="absolute -bottom-40 -right-20 h-96 w-96 rounded-full bg-accent/10 blur-3xl" />
+        <div className="absolute top-1/4 right-10 h-4 w-4 rounded-full bg-accent/40" />
+        <div className="absolute bottom-1/3 left-20 h-6 w-6 rounded-full bg-accent/30" />
       </div>
 
       <div className="relative mx-auto max-w-7xl px-6">
-        <div className="mx-auto max-w-4xl text-center">
-          {/* Badge */}
-          <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-border bg-muted px-4 py-2">
-            <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-            <span className="text-sm text-muted-foreground">Now shipping on Raspberry Pi</span>
+        <div className="grid items-center gap-12 lg:grid-cols-2">
+          {/* Left content */}
+          <div className="text-center lg:text-left">
+            <h1 className="text-balance text-4xl font-bold tracking-tight text-primary-foreground md:text-5xl lg:text-6xl">
+              ClosedClaw
+            </h1>
+            <p className="mt-4 text-xl text-primary-foreground/90 md:text-2xl">
+              Empowering Innovation, Transforming Lives.
+            </p>
+
+            <p className="mx-auto mt-6 max-w-xl text-pretty text-primary-foreground/70 lg:mx-0">
+              Your plug-and-forget AI device that automates administrative tasks. 
+              No technical knowledge required - runs 24/7 with complete privacy.
+            </p>
+
+            {/* CTA Buttons */}
+            <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row lg:justify-start">
+              <Link href="/login">
+                <Button size="lg" className="group bg-primary-foreground text-primary hover:bg-primary-foreground/90">
+                  Get Started
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Button>
+              </Link>
+              <Link href="#features">
+                <Button size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">
+                  Learn More
+                </Button>
+              </Link>
+            </div>
           </div>
 
-          {/* Headline */}
-          <h1 className="text-balance text-4xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl">
-            Your own AI team,{" "}
-            <span className="text-primary">running locally</span>
-          </h1>
-
-          {/* Subheadline */}
-          <p className="mx-auto mt-6 max-w-2xl text-pretty text-lg text-muted-foreground md:text-xl">
-            Powerful AI automation on a Raspberry Pi. Buy once, use forever - no token costs 
-            after purchase. Complete data privacy with local LLM processing.
-          </p>
-
-          {/* CTA Buttons */}
-          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Button size="lg" className="group bg-primary text-primary-foreground hover:bg-primary/90">
-              Pre-order Now
-              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Button>
-            <Button size="lg" variant="outline" className="border-border text-foreground hover:bg-card">
-              Watch Demo
-            </Button>
-          </div>
-
-          {/* Trust indicators */}
-          <div className="mt-16 flex flex-wrap items-center justify-center gap-8 border-t border-border pt-8">
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <Shield className="h-5 w-5 text-primary" />
-              <span className="text-sm">100% Local Processing</span>
+          {/* Right image - cityscape placeholder */}
+          <div className="relative mx-auto max-w-md lg:max-w-none">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border-4 border-primary-foreground/20 shadow-2xl">
+              <Image
+                src="/images/hero-device.jpg"
+                alt="ClosedClaw Device"
+                fill
+                className="object-cover"
+                priority
+              />
             </div>
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <Cpu className="h-5 w-5 text-primary" />
-              <span className="text-sm">Runs on Raspberry Pi</span>
-            </div>
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <div className="h-5 w-5 rounded-full bg-primary/20 flex items-center justify-center">
-                <span className="text-xs font-bold text-primary">$0</span>
-              </div>
-              <span className="text-sm">Zero Token Costs</span>
+            {/* Floating badge */}
+            <div className="absolute -bottom-4 -left-4 rounded-xl bg-primary-foreground px-4 py-2 shadow-lg">
+              <p className="text-sm font-medium text-primary">Plug & Forget</p>
             </div>
           </div>
         </div>

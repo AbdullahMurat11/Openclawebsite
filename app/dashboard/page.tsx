@@ -1,19 +1,19 @@
-import { createClient } from "@/lib/supabase/server"
+import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
+import { AUTH_COOKIE_NAME, AUTH_COOKIE_VALUE, getAdminEmail } from "@/lib/auth"
 
 export default async function DashboardPage() {
-  const supabase = await createClient()
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-
-  if (!user) {
+  const cookieStore = await cookies()
+  const authCookie = cookieStore.get(AUTH_COOKIE_NAME)
+  
+  if (authCookie?.value !== AUTH_COOKIE_VALUE) {
     redirect("/login")
   }
+
+  const userEmail = getAdminEmail()
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -46,7 +46,7 @@ export default async function DashboardPage() {
               Welcome to your Dashboard
             </h1>
             <p className="mt-4 text-muted-foreground">
-              You are logged in as <span className="font-medium text-foreground">{user.email}</span>
+              You are logged in as <span className="font-medium text-foreground">{userEmail}</span>
             </p>
             <div className="mt-8 rounded-lg bg-muted p-6">
               <h2 className="text-lg font-semibold text-foreground">Your Closed Claw Setup</h2>
