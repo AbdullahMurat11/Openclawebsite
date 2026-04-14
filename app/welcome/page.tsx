@@ -4,7 +4,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { AUTH_COOKIE_NAME, AUTH_COOKIE_VALUE, getAdminEmail } from "@/lib/auth"
-import { ArrowRight, Settings, LayoutDashboard, Cpu, MessageSquare } from "lucide-react"
+import { ArrowRight, Settings, LayoutDashboard, Cpu, MessageSquare, Users } from "lucide-react"
 
 export default async function WelcomePage() {
   const cookieStore = await cookies()
@@ -72,7 +72,7 @@ export default async function WelcomePage() {
           </Link>
 
           {/* Navigation Cards */}
-          <div className="grid gap-6 sm:grid-cols-3">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {/* Dashboard Card */}
             <Link 
               href="/dashboard"
@@ -123,6 +123,24 @@ export default async function WelcomePage() {
               </p>
               <div className="mt-4 flex items-center text-sm font-medium text-primary">
                 Open Settings
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </div>
+            </Link>
+
+            {/* Waitlist Admin Card */}
+            <Link 
+              href="/admin/waitlist"
+              className="group rounded-xl border border-border bg-card p-6 text-left transition-all hover:border-primary hover:shadow-md"
+            >
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
+                <Users className="h-6 w-6 text-primary" />
+              </div>
+              <h2 className="text-lg font-semibold text-foreground">Waitlist</h2>
+              <p className="mt-2 text-sm text-muted-foreground">
+                View and manage waitlist signups.
+              </p>
+              <div className="mt-4 flex items-center text-sm font-medium text-primary">
+                View Waitlist
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </div>
             </Link>
