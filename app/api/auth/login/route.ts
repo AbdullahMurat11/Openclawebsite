@@ -14,12 +14,21 @@ export async function POST(request: Request) {
 
     const response = NextResponse.json({ success: true })
     
-    // Set authentication cookie
+    // Set authentication cookie (httpOnly for security)
     response.cookies.set(AUTH_COOKIE_NAME, AUTH_COOKIE_VALUE, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
-      maxAge: 60 * 60 * 24 * 7, // 7 days
+      maxAge: 60 * 60 * 24 * 30, // 30 days
+      path: "/",
+    })
+
+    // Set a non-httpOnly cookie for UI state (so client JS can check login status)
+    response.cookies.set("cc_auth_ui", "1", {
+      httpOnly: false,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 60 * 60 * 24 * 30, // 30 days
       path: "/",
     })
 

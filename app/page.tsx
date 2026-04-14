@@ -4,7 +4,6 @@ import { Stats } from "@/components/stats"
 import { Features } from "@/components/features"
 import { Developers } from "@/components/developers"
 import { Pricing } from "@/components/pricing"
-import { CTA } from "@/components/cta"
 import { Footer } from "@/components/footer"
 
 export default function Home() {
@@ -15,7 +14,6 @@ export default function Home() {
       <Stats />
       <Features />
       <Pricing />
-      <CTA />
       <Developers />
       <Footer />
     </main>

@@ -11,8 +11,8 @@ export function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   useEffect(() => {
-    // Check if auth cookie exists
-    const hasAuthCookie = document.cookie.includes("cc_auth_session=authenticated")
+    // Check if UI auth cookie exists (set on login, persists for 30 days)
+    const hasAuthCookie = document.cookie.includes("cc_auth_ui=1")
     setIsLoggedIn(hasAuthCookie)
   }, [])
 

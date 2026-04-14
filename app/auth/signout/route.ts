@@ -14,5 +14,14 @@ export async function POST(request: Request) {
     path: "/",
   })
 
+  // Clear the UI auth cookie
+  response.cookies.set("cc_auth_ui", "", {
+    httpOnly: false,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    maxAge: 0, // Expire immediately
+    path: "/",
+  })
+
   return response
 }
