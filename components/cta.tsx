@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ArrowRight, Loader2, CheckCircle } from "lucide-react"
@@ -27,6 +27,11 @@ export function CTA() {
         setStatus("success")
         setMessage("You're on the list! We'll be in touch soon.")
         setEmail("")
+        // Auto-hide success message after 5 seconds
+        setTimeout(() => {
+          setStatus("idle")
+          setMessage("")
+        }, 5000)
       } else {
         setStatus("error")
         setMessage(data.error || "Something went wrong")
