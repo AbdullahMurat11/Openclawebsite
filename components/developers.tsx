@@ -8,31 +8,27 @@ import { Input } from "@/components/ui/input"
 const developers = [
   {
     name: "Abdullah Murat Gokalp",
-    role: "Full Stack Developer",
+    role: "CEO & Product Strategist",
     image: "/developers/abdullah.jpg",
     github: "https://github.com/AbdullahMurat11",
     linkedin: "#",
+    description: "Leading product vision and business strategy for ClosedClaw."
   },
   {
-    name: "Team Member",
-    role: "AI Engineer",
+    name: "Dean Smith",
+    role: "CTO & System Architect",
     image: "/developers/member2.jpg",
     github: "#",
     linkedin: "#",
+    description: "Building the technical infrastructure and AI systems."
   },
   {
-    name: "Team Member",
-    role: "Backend Developer",
+    name: "Alex Tan",
+    role: "Marketing Lead",
     image: "/developers/member3.jpg",
     github: "#",
     linkedin: "#",
-  },
-  {
-    name: "Team Member",
-    role: "Frontend Developer",
-    image: "/developers/member4.jpg",
-    github: "#",
-    linkedin: "#",
+    description: "Driving growth and market positioning strategies."
   },
 ]
 
