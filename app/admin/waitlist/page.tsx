@@ -37,6 +37,13 @@ export default function AdminWaitlistPage() {
 
   useEffect(() => {
     fetchWaitlist()
+    
+    // Auto-refresh every 5 seconds
+    const interval = setInterval(() => {
+      fetchWaitlist()
+    }, 5000)
+    
+    return () => clearInterval(interval)
   }, [])
 
   const downloadCSV = () => {

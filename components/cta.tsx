@@ -55,41 +55,41 @@ export function CTA() {
               to harness the power of local AI agents.
             </p>
 
-            {status === "success" ? (
-              <div className="mt-8 flex items-center justify-center gap-2 text-green-600">
+            <form onSubmit={handleSubmit} className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <Input
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full max-w-xs"
+                required
+                disabled={status === "loading"}
+              />
+              <Button 
+                type="submit" 
+                size="lg" 
+                className="group bg-primary text-primary-foreground hover:bg-primary/90"
+                disabled={status === "loading"}
+              >
+                {status === "loading" ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Joining...
+                  </>
+                ) : (
+                  <>
+                    Join the Waitlist
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </>
+                )}
+              </Button>
+            </form>
+
+            {status === "success" && (
+              <div className="mt-4 flex items-center justify-center gap-2 text-green-600">
                 <CheckCircle className="h-5 w-5" />
                 <span className="font-medium">{message}</span>
               </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                <Input
-                  type="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full max-w-xs"
-                  required
-                  disabled={status === "loading"}
-                />
-                <Button 
-                  type="submit" 
-                  size="lg" 
-                  className="group bg-primary text-primary-foreground hover:bg-primary/90"
-                  disabled={status === "loading"}
-                >
-                  {status === "loading" ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Joining...
-                    </>
-                  ) : (
-                    <>
-                      Join the Waitlist
-                      <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                    </>
-                  )}
-                </Button>
-              </form>
             )}
 
             {status === "error" && (
