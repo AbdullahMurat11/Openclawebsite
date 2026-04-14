@@ -4,7 +4,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { AUTH_COOKIE_NAME, AUTH_COOKIE_VALUE, getAdminEmail } from "@/lib/auth"
-import { ArrowRight, Settings, LayoutDashboard, Cpu, MessageSquare, Users } from "lucide-react"
+import { ArrowRight, Settings, LayoutDashboard, Cpu, MessageSquare, Users, User, LogOut } from "lucide-react"
 
 export default async function WelcomePage() {
   const cookieStore = await cookies()
@@ -31,11 +31,20 @@ export default async function WelcomePage() {
             />
             <span className="text-xl font-bold text-foreground">Closed Claw</span>
           </Link>
-          <form action="/auth/signout" method="post">
-            <Button type="submit" variant="outline">
-              Sign out
-            </Button>
-          </form>
+          <div className="flex items-center gap-3">
+            <div 
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground"
+              title={userEmail}
+            >
+              <User className="h-5 w-5" />
+            </div>
+            <form action="/auth/signout" method="post">
+              <Button type="submit" variant="outline" size="sm">
+                <LogOut className="mr-2 h-4 w-4" />
+                Sign out
+              </Button>
+            </form>
+          </div>
         </div>
       </header>
 

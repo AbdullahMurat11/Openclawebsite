@@ -4,6 +4,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { AUTH_COOKIE_NAME, AUTH_COOKIE_VALUE, getAdminEmail } from "@/lib/auth"
+import { ArrowLeft, User } from "lucide-react"
 
 export default async function DashboardPage() {
   const cookieStore = await cookies()
@@ -20,21 +21,31 @@ export default async function DashboardPage() {
       {/* Header */}
       <header className="border-b border-border bg-background">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-          <Link href="/" className="flex items-center gap-3">
-            <Image 
-              src="/images/logo.png" 
-              alt="Closed Claw Logo" 
-              width={40} 
-              height={40} 
-              className="rounded-lg"
-            />
-            <span className="text-xl font-bold text-foreground">Closed Claw</span>
+          <div className="flex items-center gap-4">
+            <Link href="/welcome">
+              <Button variant="ghost" size="sm">
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Back
+              </Button>
+            </Link>
+            <Link href="/" className="flex items-center gap-3">
+              <Image 
+                src="/images/logo.png" 
+                alt="Closed Claw Logo" 
+                width={40} 
+                height={40} 
+                className="rounded-lg"
+              />
+              <span className="text-xl font-bold text-foreground">Closed Claw</span>
+            </Link>
+          </div>
+          <Link 
+            href="/welcome" 
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground transition-colors hover:bg-primary/90"
+            title={userEmail}
+          >
+            <User className="h-5 w-5" />
           </Link>
-          <form action="/auth/signout" method="post">
-            <Button type="submit" variant="outline">
-              Sign out
-            </Button>
-          </form>
         </div>
       </header>
 

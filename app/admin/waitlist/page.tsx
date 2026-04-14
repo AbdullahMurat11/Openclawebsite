@@ -11,7 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { ArrowLeft, RefreshCw, Download, Users } from "lucide-react"
+import { ArrowLeft, RefreshCw, Download, Users, User } from "lucide-react"
 
 type WaitlistEntry = {
   email: string
@@ -91,7 +91,7 @@ export default function AdminWaitlistPage() {
               </p>
             </div>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <Button
               variant="outline"
               size="sm"
@@ -110,6 +110,13 @@ export default function AdminWaitlistPage() {
               <Download className="mr-2 h-4 w-4" />
               Export CSV
             </Button>
+            <Link 
+              href="/welcome" 
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground transition-colors hover:bg-primary/90"
+              title="Back to Welcome"
+            >
+              <User className="h-5 w-5" />
+            </Link>
           </div>
         </div>
       </header>
