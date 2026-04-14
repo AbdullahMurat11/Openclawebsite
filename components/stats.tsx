@@ -26,7 +26,7 @@ export function Stats() {
     <section className="border-y border-border bg-card py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-6">
         <div className="mb-12 text-center">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-accent">Market Opportunity</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-primary">Market Opportunity</h2>
           <p className="mt-2 text-2xl font-bold text-foreground md:text-3xl">
             Small businesses are being left behind in the AI revolution
           </p>
@@ -35,7 +35,7 @@ export function Stats() {
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {stats.map((stat, index) => (
             <div key={index} className="text-center">
-              <div className="text-4xl font-bold text-accent md:text-5xl">{stat.value}</div>
+              <div className="text-4xl font-bold text-primary md:text-5xl">{stat.value}</div>
               <div className="mt-2 text-sm font-medium text-foreground">{stat.label}</div>
               <div className="mt-1 text-xs text-muted-foreground">{stat.description}</div>
             </div>

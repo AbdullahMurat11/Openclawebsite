@@ -8,7 +8,7 @@ export function CTA() {
         <div className="relative overflow-hidden rounded-3xl bg-background p-8 md:p-16">
           {/* Background effect */}
           <div className="pointer-events-none absolute inset-0 overflow-hidden">
-            <div className="absolute -bottom-1/2 left-1/2 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-accent/5 blur-3xl" />
+            <div className="absolute -bottom-1/2 left-1/2 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-primary/5 blur-3xl" />
           </div>
 
           <div className="relative mx-auto max-w-2xl text-center">
@@ -16,12 +16,12 @@ export function CTA() {
               Ready to bring AI to your business?
             </h2>
             <p className="mt-4 text-muted-foreground text-pretty">
-              Join the waitlist for early access to OpenClaw. Be among the first small businesses 
+              Join the waitlist for early access to Closed Claw. Be among the first small businesses 
               to harness the power of local AI agents.
             </p>
 
             <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Button size="lg" className="group bg-accent text-accent-foreground hover:bg-accent/90">
+              <Button size="lg" className="group bg-primary text-primary-foreground hover:bg-primary/90">
                 Join the Waitlist
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
