@@ -10,10 +10,11 @@ export async function updateSession(request: NextRequest) {
   const authCookie = request.cookies.get(AUTH_COOKIE_NAME)
   const isAuthenticated = authCookie?.value === AUTH_COOKIE_VALUE
 
-  // Protect dashboard and welcome routes
+  // Protect dashboard, welcome, and chat routes
   if (
     (request.nextUrl.pathname.startsWith('/dashboard') || 
-     request.nextUrl.pathname.startsWith('/welcome')) &&
+     request.nextUrl.pathname.startsWith('/welcome') ||
+     request.nextUrl.pathname.startsWith('/chat')) &&
     !isAuthenticated
   ) {
     const url = request.nextUrl.clone()
