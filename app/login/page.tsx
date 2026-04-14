@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { ArrowLeft } from "lucide-react"
-import { createClient } from "@/lib/supabase/client"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 
@@ -22,20 +21,20 @@ export default function LoginPage() {
     setIsLoading(true)
     setError(null)
 
-    const supabase = createClient()
+    // Simple hardcoded authentication
+    const ALLOWED_EMAIL = "abdullahmuratgokalp@gmail.com"
+    const ALLOWED_PASSWORD = "Amerika1234"
 
-    try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      })
-      if (error) throw error
+    if (email === ALLOWED_EMAIL && password === ALLOWED_PASSWORD) {
+      // Store auth state in localStorage
+      localStorage.setItem("isAuthenticated", "true")
+      localStorage.setItem("userEmail", email)
       router.push("/dashboard")
-    } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : "An error occurred")
-    } finally {
-      setIsLoading(false)
+    } else {
+      setError("Invalid email or password")
     }
+    
+    setIsLoading(false)
   }
 
   return (

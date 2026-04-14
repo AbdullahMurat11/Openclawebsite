@@ -1,18 +1,41 @@
-import { createClient } from "@/lib/supabase/server"
-import { redirect } from "next/navigation"
+"use client"
+
+import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 
-export default async function DashboardPage() {
-  const supabase = await createClient()
+export default function DashboardPage() {
+  const [userEmail, setUserEmail] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const router = useRouter()
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem("isAuthenticated")
+    const email = localStorage.getItem("userEmail")
+    
+    if (!isAuthenticated || isAuthenticated !== "true") {
+      router.push("/login")
+      return
+    }
+    
+    setUserEmail(email)
+    setIsLoading(false)
+  }, [router])
 
-  if (!user) {
-    redirect("/login")
+  const handleSignOut = () => {
+    localStorage.removeItem("isAuthenticated")
+    localStorage.removeItem("userEmail")
+    router.push("/login")
+  }
+
+  if (isLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-background">
+        <p className="text-muted-foreground">Loading...</p>
+      </div>
+    )
   }
 
   return (
@@ -30,11 +53,9 @@ export default async function DashboardPage() {
             />
             <span className="text-xl font-bold text-foreground">Closed Claw</span>
           </Link>
-          <form action="/auth/signout" method="post">
-            <Button type="submit" variant="outline">
-              Sign out
-            </Button>
-          </form>
+          <Button type="button" variant="outline" onClick={handleSignOut}>
+            Sign out
+          </Button>
         </div>
       </header>
 
@@ -46,7 +67,7 @@ export default async function DashboardPage() {
               Welcome to your Dashboard
             </h1>
             <p className="mt-4 text-muted-foreground">
-              You are logged in as <span className="font-medium text-foreground">{user.email}</span>
+              You are logged in as <span className="font-medium text-foreground">{userEmail}</span>
             </p>
             <div className="mt-8 rounded-lg bg-muted p-6">
               <h2 className="text-lg font-semibold text-foreground">Your Closed Claw Setup</h2>
