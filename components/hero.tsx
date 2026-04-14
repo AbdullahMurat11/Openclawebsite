@@ -5,7 +5,20 @@ import Image from "next/image"
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden bg-primary pt-32 pb-20 md:pt-40 md:pb-32">
+    <section className="relative overflow-hidden pt-32 pb-20 md:pt-40 md:pb-32">
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <Image
+          src="/images/hero-bg.jpg"
+          alt=""
+          fill
+          className="object-cover"
+          priority
+        />
+        {/* Overlay for better text readability */}
+        <div className="absolute inset-0 bg-primary/80" />
+      </div>
+      
       {/* Decorative circles */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute -top-20 -left-20 h-80 w-80 rounded-full bg-accent/20 blur-3xl" />
