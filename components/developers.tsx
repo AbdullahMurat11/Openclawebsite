@@ -1,5 +1,6 @@
-import { Github, Linkedin } from "lucide-react"
-import Image from "next/image"
+import { Github, Linkedin, ArrowRight } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 
 const developers = [
   {
@@ -81,6 +82,33 @@ export function Developers() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Join the Waitlist */}
+        <div className="mt-20 rounded-2xl border border-border bg-background p-8 md:p-12">
+          <div className="mx-auto max-w-2xl text-center">
+            <h3 className="text-2xl font-bold text-foreground md:text-3xl text-balance">
+              Join the Waitlist
+            </h3>
+            <p className="mt-3 text-muted-foreground text-pretty">
+              Be the first to know when we launch. Get early access and exclusive updates.
+            </p>
+            <form className="mt-6 flex flex-col gap-3 sm:flex-row sm:gap-4">
+              <Input
+                type="email"
+                placeholder="Enter your email"
+                className="flex-1 bg-muted border-border"
+                required
+              />
+              <Button type="submit" className="group bg-primary text-primary-foreground hover:bg-primary/90">
+                Join Waitlist
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Button>
+            </form>
+            <p className="mt-4 text-xs text-muted-foreground">
+              No spam, ever. We respect your privacy.
+            </p>
+          </div>
         </div>
       </div>
     </section>
