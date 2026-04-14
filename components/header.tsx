@@ -40,12 +40,16 @@ export function Header() {
         </nav>
 
         <div className="hidden items-center gap-4 md:flex">
-          <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
-            Log in
-          </Button>
-          <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
-            Get Started
-          </Button>
+          <Link href="/login">
+            <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
+              Log in
+            </Button>
+          </Link>
+          <Link href="/login">
+            <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
+              Get Started
+            </Button>
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
@@ -95,12 +99,16 @@ export function Header() {
               Pricing
             </Link>
             <div className="flex flex-col gap-2 pt-4">
-              <Button variant="ghost" size="sm" className="justify-start text-muted-foreground">
-                Log in
-              </Button>
-              <Button size="sm" className="bg-primary text-primary-foreground">
-                Get Started
-              </Button>
+              <Link href="/login" onClick={() => setIsMenuOpen(false)}>
+                <Button variant="ghost" size="sm" className="w-full justify-start text-muted-foreground">
+                  Log in
+                </Button>
+              </Link>
+              <Link href="/login" onClick={() => setIsMenuOpen(false)}>
+                <Button size="sm" className="w-full bg-primary text-primary-foreground">
+                  Get Started
+                </Button>
+              </Link>
             </div>
           </nav>
         </div>
