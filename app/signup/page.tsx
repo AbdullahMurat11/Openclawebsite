@@ -38,25 +38,44 @@ export default function SignupPage() {
     const supabase = createClient()
 
     try {
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
-        options: {
-          emailRedirectTo: undefined, // No email verification
-        },
       })
+      
       if (error) throw error
       
-      // Auto sign in after signup
-      const { error: signInError } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      })
-      if (signInError) throw signInError
+      // Check if user was created and session exists (email confirmation disabled)
+      if (data.session) {
+        router.push("/dashboard")
+        return
+      }
       
-      router.push("/dashboard")
+      // If no session but user exists, try to sign in directly
+      // This handles the case where email confirmation might be disabled
+      if (data.user) {
+        const { error: signInError } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        })
+        if (signInError) {
+          // If sign in fails, user might need to confirm email
+          setError("Account created. Please check your email to confirm your account, then sign in.")
+        } else {
+          router.push("/dashboard")
+        }
+        return
+      }
+      
+      setError("Unable to create account. Please try again.")
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : "An error occurred")
+      const errorMessage = err instanceof Error ? err.message : "An error occurred"
+      // Make error messages more user-friendly
+      if (errorMessage.includes("Database error")) {
+        setError("Unable to create account at this time. Please try again later.")
+      } else {
+        setError(errorMessage)
+      }
     } finally {
       setIsLoading(false)
     }
