@@ -37,7 +37,7 @@ export default function LoginPage() {
         throw new Error(data.error || "Invalid credentials")
       }
 
-      router.push("/dashboard")
+      router.push("/welcome")
       router.refresh()
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "An error occurred")
