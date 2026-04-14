@@ -1,13 +1,20 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { Menu, X } from "lucide-react"
+import { Menu, X, User } from "lucide-react"
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+  useEffect(() => {
+    // Check if auth cookie exists
+    const hasAuthCookie = document.cookie.includes("cc_auth_session=authenticated")
+    setIsLoggedIn(hasAuthCookie)
+  }, [])
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
@@ -40,16 +47,28 @@ export function Header() {
         </nav>
 
         <div className="hidden items-center gap-4 md:flex">
-          <Link href="/login">
-            <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
-              Log in
-            </Button>
-          </Link>
-          <Link href="/login">
-            <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
-              Get Started
-            </Button>
-          </Link>
+          {isLoggedIn ? (
+            <Link 
+              href="/welcome" 
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground transition-colors hover:bg-primary/90"
+              title="Go to Dashboard"
+            >
+              <User className="h-5 w-5" />
+            </Link>
+          ) : (
+            <>
+              <Link href="/login">
+                <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
+                  Log in
+                </Button>
+              </Link>
+              <Link href="/login">
+                <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
+                  Get Started
+                </Button>
+              </Link>
+            </>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -99,16 +118,27 @@ export function Header() {
               Pricing
             </Link>
             <div className="flex flex-col gap-2 pt-4">
-              <Link href="/login" onClick={() => setIsMenuOpen(false)}>
-                <Button variant="ghost" size="sm" className="w-full justify-start text-muted-foreground">
-                  Log in
-                </Button>
-              </Link>
-              <Link href="/login" onClick={() => setIsMenuOpen(false)}>
-                <Button size="sm" className="w-full bg-primary text-primary-foreground">
-                  Get Started
-                </Button>
-              </Link>
+              {isLoggedIn ? (
+                <Link href="/welcome" onClick={() => setIsMenuOpen(false)}>
+                  <Button size="sm" className="w-full bg-primary text-primary-foreground">
+                    <User className="mr-2 h-4 w-4" />
+                    My Account
+                  </Button>
+                </Link>
+              ) : (
+                <>
+                  <Link href="/login" onClick={() => setIsMenuOpen(false)}>
+                    <Button variant="ghost" size="sm" className="w-full justify-start text-muted-foreground">
+                      Log in
+                    </Button>
+                  </Link>
+                  <Link href="/login" onClick={() => setIsMenuOpen(false)}>
+                    <Button size="sm" className="w-full bg-primary text-primary-foreground">
+                      Get Started
+                    </Button>
+                  </Link>
+                </>
+              )}
             </div>
           </nav>
         </div>
