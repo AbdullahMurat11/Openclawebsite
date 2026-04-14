@@ -1,4 +1,7 @@
-import { Github, Linkedin, ArrowRight } from "lucide-react"
+"use client"
+
+import { useState } from "react"
+import { Github, Linkedin, ArrowRight, Loader2, CheckCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
@@ -34,6 +37,40 @@ const developers = [
 ]
 
 export function Developers() {
+  const [email, setEmail] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
+  const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null)
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsLoading(true)
+    setMessage(null)
+
+    try {
+      const response = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || "Something went wrong")
+      }
+
+      setMessage({ type: "success", text: data.message })
+      setEmail("")
+    } catch (error) {
+      setMessage({ 
+        type: "error", 
+        text: error instanceof Error ? error.message : "Something went wrong" 
+      })
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   return (
     <section id="developers" className="border-t border-border bg-card py-20 md:py-32">
       <div className="mx-auto max-w-7xl px-6">
@@ -93,18 +130,42 @@ export function Developers() {
             <p className="mt-3 text-muted-foreground text-pretty">
               Be the first to know when we launch. Get early access and exclusive updates.
             </p>
-            <form className="mt-6 flex flex-col gap-3 sm:flex-row sm:gap-4">
+            <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-3 sm:flex-row sm:gap-4">
               <Input
                 type="email"
                 placeholder="Enter your email"
                 className="flex-1 bg-muted border-border"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={isLoading}
                 required
               />
-              <Button type="submit" className="group bg-primary text-primary-foreground hover:bg-primary/90">
-                Join Waitlist
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              <Button 
+                type="submit" 
+                className="group bg-primary text-primary-foreground hover:bg-primary/90"
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Joining...
+                  </>
+                ) : (
+                  <>
+                    Join Waitlist
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </>
+                )}
               </Button>
             </form>
+            {message && (
+              <div className={`mt-4 flex items-center justify-center gap-2 text-sm ${
+                message.type === "success" ? "text-green-600" : "text-red-500"
+              }`}>
+                {message.type === "success" && <CheckCircle className="h-4 w-4" />}
+                {message.text}
+              </div>
+            )}
             <p className="mt-4 text-xs text-muted-foreground">
               No spam, ever. We respect your privacy.
             </p>
