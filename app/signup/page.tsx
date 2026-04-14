@@ -10,26 +10,50 @@ import { createClient } from "@/lib/supabase/client"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 
-export default function LoginPage() {
+export default function SignupPage() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
 
-  const handleEmailLogin = async (e: React.FormEvent) => {
+  const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
     setError(null)
 
+    if (password !== confirmPassword) {
+      setError("Passwords do not match")
+      setIsLoading(false)
+      return
+    }
+
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters")
+      setIsLoading(false)
+      return
+    }
+
     const supabase = createClient()
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: undefined, // No email verification
+        },
+      })
+      if (error) throw error
+      
+      // Auto sign in after signup
+      const { error: signInError } = await supabase.auth.signInWithPassword({
         email,
         password,
       })
-      if (error) throw error
+      if (signInError) throw signInError
+      
       router.push("/dashboard")
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "An error occurred")
@@ -66,12 +90,12 @@ export default function LoginPage() {
       {/* Main Content */}
       <main className="flex flex-1 items-center justify-center px-6 py-12">
         <div className="w-full max-w-md">
-          {/* Login Card */}
+          {/* Signup Card */}
           <div className="rounded-2xl border border-border bg-card p-8 shadow-sm">
             <div className="mb-8 text-center">
-              <h1 className="text-2xl font-bold text-foreground">Welcome back</h1>
+              <h1 className="text-2xl font-bold text-foreground">Create an account</h1>
               <p className="mt-2 text-sm text-muted-foreground">
-                Sign in to access your Closed Claw dashboard
+                Sign up to get started with Closed Claw
               </p>
             </div>
 
@@ -81,7 +105,7 @@ export default function LoginPage() {
               </div>
             )}
 
-            <form onSubmit={handleEmailLogin} className="space-y-6">
+            <form onSubmit={handleSignup} className="space-y-6">
               {/* Email Field */}
               <div className="space-y-2">
                 <Label htmlFor="email" className="text-sm font-medium text-foreground">
@@ -101,25 +125,34 @@ export default function LoginPage() {
 
               {/* Password Field */}
               <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <Label htmlFor="password" className="text-sm font-medium text-foreground">
-                    Password
-                  </Label>
-                  <Link 
-                    href="/forgot-password" 
-                    className="text-sm text-primary hover:text-primary/80"
-                  >
-                    Forgot password?
-                  </Link>
-                </div>
+                <Label htmlFor="password" className="text-sm font-medium text-foreground">
+                  Password
+                </Label>
                 <Input
                   id="password"
                   type="password"
-                  placeholder="Enter your password"
+                  placeholder="Create a password"
                   className="h-11 border-border bg-background text-foreground placeholder:text-muted-foreground focus-visible:ring-primary"
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  disabled={isLoading}
+                />
+              </div>
+
+              {/* Confirm Password Field */}
+              <div className="space-y-2">
+                <Label htmlFor="confirmPassword" className="text-sm font-medium text-foreground">
+                  Confirm password
+                </Label>
+                <Input
+                  id="confirmPassword"
+                  type="password"
+                  placeholder="Confirm your password"
+                  className="h-11 border-border bg-background text-foreground placeholder:text-muted-foreground focus-visible:ring-primary"
+                  required
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                   disabled={isLoading}
                 />
               </div>
@@ -130,22 +163,22 @@ export default function LoginPage() {
                 className="h-11 w-full bg-primary text-primary-foreground hover:bg-primary/90"
                 disabled={isLoading}
               >
-                {isLoading ? "Signing in..." : "Sign in"}
+                {isLoading ? "Creating account..." : "Create account"}
               </Button>
             </form>
 
-            {/* Sign Up Link */}
+            {/* Login Link */}
             <p className="mt-8 text-center text-sm text-muted-foreground">
-              {"Don't have an account? "}
-              <Link href="/signup" className="font-medium text-primary hover:text-primary/80">
-                Sign up
+              Already have an account?{" "}
+              <Link href="/login" className="font-medium text-primary hover:text-primary/80">
+                Sign in
               </Link>
             </p>
           </div>
 
           {/* Footer Text */}
           <p className="mt-6 text-center text-xs text-muted-foreground">
-            By signing in, you agree to our{" "}
+            By signing up, you agree to our{" "}
             <Link href="/terms" className="underline hover:text-foreground">
               Terms of Service
             </Link>{" "}
