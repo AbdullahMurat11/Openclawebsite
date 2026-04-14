@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { ArrowLeft } from "lucide-react"
-import { createClient } from "@/lib/supabase/client"
+
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 
@@ -22,15 +22,23 @@ export default function LoginPage() {
     setIsLoading(true)
     setError(null)
 
-    const supabase = createClient()
-
     try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
       })
-      if (error) throw error
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || "Invalid credentials")
+      }
+
       router.push("/dashboard")
+      router.refresh()
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "An error occurred")
     } finally {

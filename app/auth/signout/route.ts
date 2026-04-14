@@ -1,10 +1,18 @@
-import { createClient } from "@/lib/supabase/server"
 import { NextResponse } from "next/server"
+import { AUTH_COOKIE_NAME } from "@/lib/auth"
 
 export async function POST(request: Request) {
-  const supabase = await createClient()
-  await supabase.auth.signOut()
-  
   const url = new URL("/", request.url)
-  return NextResponse.redirect(url)
+  const response = NextResponse.redirect(url)
+  
+  // Clear the auth cookie
+  response.cookies.set(AUTH_COOKIE_NAME, "", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    maxAge: 0, // Expire immediately
+    path: "/",
+  })
+
+  return response
 }
