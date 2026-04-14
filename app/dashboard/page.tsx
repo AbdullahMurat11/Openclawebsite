@@ -1,20 +1,8 @@
-import { createClient } from "@/lib/supabase/server"
-import { redirect } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 
-export default async function DashboardPage() {
-  const supabase = await createClient()
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-
-  if (!user) {
-    redirect("/login")
-  }
-
+export default function DashboardPage() {
   return (
     <div className="flex min-h-screen flex-col bg-background">
       {/* Header */}
@@ -30,11 +18,11 @@ export default async function DashboardPage() {
             />
             <span className="text-xl font-bold text-foreground">Closed Claw</span>
           </Link>
-          <form action="/auth/signout" method="post">
-            <Button type="submit" variant="outline">
-              Sign out
+          <Link href="/">
+            <Button variant="outline">
+              Back to Home
             </Button>
-          </form>
+          </Link>
         </div>
       </header>
 
@@ -43,10 +31,10 @@ export default async function DashboardPage() {
         <div className="w-full max-w-2xl text-center">
           <div className="rounded-2xl border border-border bg-card p-12 shadow-sm">
             <h1 className="text-3xl font-bold text-foreground">
-              Welcome to your Dashboard
+              Dashboard Coming Soon
             </h1>
             <p className="mt-4 text-muted-foreground">
-              You are logged in as <span className="font-medium text-foreground">{user.email}</span>
+              Authentication is being configured. Please check back soon.
             </p>
             <div className="mt-8 rounded-lg bg-muted p-6">
               <h2 className="text-lg font-semibold text-foreground">Your Closed Claw Setup</h2>
@@ -54,6 +42,11 @@ export default async function DashboardPage() {
                 Your AI agents are ready to help you automate your business tasks.
                 Connect your Raspberry Pi device to get started.
               </p>
+            </div>
+            <div className="mt-8">
+              <Link href="/">
+                <Button>Return to Home</Button>
+              </Link>
             </div>
           </div>
         </div>
